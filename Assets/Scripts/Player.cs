@@ -35,11 +35,8 @@ public class Player : MonoBehaviour
         col.GetContacts(contactPoints);
         var newOnGround = false;
         foreach (ContactPoint2D point in contactPoints)
-        {
-            Debug.Log(Math.Abs(Vector2.SignedAngle(point.normal, Vector2.up)) + " " + groundAngleThreshold);
             if (Math.Abs(Vector2.SignedAngle(point.normal, Vector2.up)) <= groundAngleThreshold)
                 newOnGround = true;
-        }
 
         if (onGround && !newOnGround) groundTimer = groundDecayTicks;
         else effectiveOnGround = newOnGround;
