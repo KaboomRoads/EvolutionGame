@@ -56,14 +56,6 @@ public class Player : MonoBehaviour
         Gizmos.DrawLine(start, end2);
     }
 
-    public static Vector2 rotate(Vector2 v, float delta)
-    {
-        return new Vector2(
-            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
-            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
-        );
-    }
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

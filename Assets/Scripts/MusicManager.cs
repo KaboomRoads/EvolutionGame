@@ -1,16 +1,23 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    public readonly Dictionary<MusicId, AudioClip> music = new();
-    public MusicId currentMusic = MusicId.Silence;
+    private AudioSource source;
 
     private void Start()
     {
+        source = GetComponent<AudioSource>();
     }
 
-    private void Update()
+    public void SetMusic(AudioClip music)
     {
+        source.Stop();
+        source.clip = music;
+        source.Play();
+    }
+
+    public AudioClip GetMusic()
+    {
+        return source.clip;
     }
 }
