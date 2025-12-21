@@ -3,12 +3,12 @@
 public class EvolutionData : MonoBehaviour
 {
     public int points;
-    public GameObject head;
-    public GameObject leftLeg;
-    public GameObject rightLeg;
-    public GameObject leftArm;
-    public GameObject rightArm;
-    public GameObject tail;
+    public BodyPart head;
+    public BodyPart leftLeg;
+    public BodyPart rightLeg;
+    public BodyPart leftArm;
+    public BodyPart rightArm;
+    public BodyPart tail;
     public Brain.Brain brain;
 
     public void Eat(int points)
