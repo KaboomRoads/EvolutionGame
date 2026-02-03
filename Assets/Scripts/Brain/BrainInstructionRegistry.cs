@@ -7,140 +7,140 @@ namespace Brain
     {
         public static readonly Dictionary<string, BrainInstructionType> BY_NAME = new();
 
-        public static readonly BrainInstructionType PUSH_I = Register("push.i", "pushes an integer to the stack", Type.EmptyTypes, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType PUSH_INT = Register("push.int", "pushes an integer to the stack", Type.EmptyTypes, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
         {
             if (args.Length > 0 && int.TryParse(args[0], out int i)) runningProgram.stack.Push(i);
         });
 
-        public static readonly BrainInstructionType CONV_I = Register("conv.i", "converts a value to an integer", new[] { typeof(object) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) => { runningProgram.stack.Push(Convert.ToInt32(runningProgram.stack.Pop())); });
+        public static readonly BrainInstructionType CONV_INT = Register("conv.int", "converts a value to an integer", new[] { typeof(object) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) => { runningProgram.stack.Push(Convert.ToInt32(runningProgram.stack.Pop())); });
 
-        public static readonly BrainInstructionType PUSH_F = Register("push.f", "pushes a float to the stack", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType PUSH_DEC = Register("push.dec", "pushes a float to the stack", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             if (args.Length > 0 && float.TryParse(args[0], out float f)) runningProgram.stack.Push(f);
         });
 
-        public static readonly BrainInstructionType CONV_F = Register("conv.f", "converts a value to a float", new[] { typeof(object) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) => { runningProgram.stack.Push(Convert.ToSingle(runningProgram.stack.Pop())); });
+        public static readonly BrainInstructionType CONV_DEC = Register("conv.dec", "converts a value to a float", new[] { typeof(object) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) => { runningProgram.stack.Push(Convert.ToSingle(runningProgram.stack.Pop())); });
 
-        public static readonly BrainInstructionType PUSH_B = Register("push.b", "pushes a boolean to the stack", Type.EmptyTypes, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType PUSH_BOOL = Register("push.bool", "pushes a boolean to the stack", Type.EmptyTypes, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             if (args.Length > 0 && bool.TryParse(args[0], out bool b)) runningProgram.stack.Push(b);
         });
 
-        public static readonly BrainInstructionType ADD_I = Register("add.i", "adds 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType ADD_INT = Register("add.int", "adds 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 + i2);
         });
 
-        public static readonly BrainInstructionType ADD_F = Register("add.f", "adds 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType ADD_DEC = Register("add.dec", "adds 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 + f2);
         });
 
-        public static readonly BrainInstructionType GR_I = Register("gr.i", "compares 2 integers using \"greater than\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType GR_INT = Register("gr.int", "compares 2 integers using \"greater than\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 > i2);
         });
 
-        public static readonly BrainInstructionType GR_F = Register("gr.f", "adds 2 floats using \"greater than\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType GR_DEC = Register("gr.dec", "adds 2 floats using \"greater than\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 > f2);
         });
 
-        public static readonly BrainInstructionType GREQ_I = Register("greq.i", "compares 2 integers using \"greater or equal to\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType GREQ_INT = Register("greq.int", "compares 2 integers using \"greater or equal to\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 >= i2);
         });
 
-        public static readonly BrainInstructionType GREQ_F = Register("greq.f", "adds 2 floats using \"greater or equal to\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType GREQ_DEC = Register("greq.dec", "adds 2 floats using \"greater or equal to\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 >= f2);
         });
 
-        public static readonly BrainInstructionType LS_I = Register("ls.i", "compares 2 integers using \"lesser than\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType LS_INT = Register("ls.int", "compares 2 integers using \"lesser than\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 < i2);
         });
 
-        public static readonly BrainInstructionType LS_F = Register("ls.f", "adds 2 floats using \"lesser than\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType LS_DEC = Register("ls.dec", "adds 2 floats using \"lesser than\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 < f2);
         });
 
-        public static readonly BrainInstructionType LSEQ_I = Register("lseq.i", "compares 2 integers using \"lesser or equal to\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType LSEQ_INT = Register("lseq.int", "compares 2 integers using \"lesser or equal to\"", new[] { typeof(int), typeof(int) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 <= i2);
         });
 
-        public static readonly BrainInstructionType LSEQ_F = Register("lseq.f", "adds 2 floats using \"lesser or equal to\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType LSEQ_DEC = Register("lseq.dec", "adds 2 floats using \"lesser or equal to\"", new[] { typeof(float), typeof(float) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 <= f2);
         });
 
-        public static readonly BrainInstructionType SUB_I = Register("sub.i", "subtracts 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType SUB_INT = Register("sub.int", "subtracts 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 - i2);
         });
 
-        public static readonly BrainInstructionType SUB_F = Register("sub.f", "subtracts 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType SUB_DEC = Register("sub.dec", "subtracts 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 - f2);
         });
 
-        public static readonly BrainInstructionType MUL_I = Register("mul.i", "multiplies 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType MUL_INT = Register("mul.int", "multiplies 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 * i2);
         });
 
-        public static readonly BrainInstructionType MUL_F = Register("mul.f", "multiplies 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType MUL_DEC = Register("mul.dec", "multiplies 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 * f2);
         });
 
-        public static readonly BrainInstructionType DIV_I = Register("div.i", "divides 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType DIV_INT = Register("div.int", "divides 2 integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 / i2);
         });
 
-        public static readonly BrainInstructionType DIV_F = Register("div.f", "divides 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType DIV_DEC = Register("div.dec", "divides 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 / f2);
         });
 
-        public static readonly BrainInstructionType REM_I = Register("rem.i", "gets the remainder of 2 divided integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType REM_INT = Register("rem.int", "gets the remainder of 2 divided integers", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push(i1 % i2);
         });
 
-        public static readonly BrainInstructionType REM_F = Register("rem.f", "gets the remainder of 2 divided floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType REM_DEC = Register("rem.dec", "gets the remainder of 2 divided floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push(f1 % f2);
         });
 
-        public static readonly BrainInstructionType POW_I = Register("pow.i", "gets the power of 2 ints", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType POW_INT = Register("pow.int", "gets the power of 2 ints", new[] { typeof(int), typeof(int) }, new[] { typeof(int) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is int i2 && stack.Pop() is int i1) stack.Push((int)Math.Pow(i1, i2));
         });
 
-        public static readonly BrainInstructionType POW_F = Register("pow.f", "gets the power of 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType POW_DEC = Register("pow.dec", "gets the power of 2 floats", new[] { typeof(float), typeof(float) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
             if (stack.Pop() is float f2 && stack.Pop() is float f1) stack.Push((float)Math.Pow(f1, f2));
@@ -167,7 +167,7 @@ namespace Brain
         public static readonly BrainInstructionType COMP_EQ = Register("comp.eq", "compares 2 values using \"equals\"", new[] { typeof(object), typeof(object) }, new[] { typeof(bool) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
-            if (stack.Pop() is bool b2 && stack.Pop() is bool b1) stack.Push(b1 || b2);
+            if (stack.Pop() is bool b2 && stack.Pop() is bool b1) stack.Push(b1 == b2);
         });
 
         public static readonly BrainInstructionType STLOC = Register("stloc", "stores a value in a local variable at the specified index", new[] { typeof(object), typeof(int) }, Type.EmptyTypes, (runningProgram, locals, args, returnPointer) =>
