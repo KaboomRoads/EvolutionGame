@@ -35,11 +35,8 @@ public class Player : MonoBehaviour
         col.GetContacts(contactPoints);
         var newOnGround = false;
         foreach (ContactPoint2D point in contactPoints)
-        {
-            Debug.Log(Math.Abs(Vector2.SignedAngle(point.normal, Vector2.up)) + " " + groundAngleThreshold);
             if (Math.Abs(Vector2.SignedAngle(point.normal, Vector2.up)) <= groundAngleThreshold)
                 newOnGround = true;
-        }
 
         if (onGround && !newOnGround) groundTimer = groundDecayTicks;
         else effectiveOnGround = newOnGround;
@@ -57,14 +54,6 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(start, end1);
         Gizmos.DrawLine(start, end2);
-    }
-
-    public static Vector2 rotate(Vector2 v, float delta)
-    {
-        return new Vector2(
-            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
-            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
-        );
     }
 
     private void Awake()
