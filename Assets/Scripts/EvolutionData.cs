@@ -39,7 +39,7 @@ public class EvolutionData : MonoBehaviour
 
     public bool AnyEcho()
     {
-        return head.enablesEcholocation || leftLeg.enablesEcholocation || rightLeg.enablesEcholocation || leftArm.enablesEcholocation || rightArm.enablesEcholocation || tail.enablesEcholocation;
+        return (head && head.enablesEcholocation) || (leftLeg && leftLeg.enablesEcholocation) || (rightLeg && rightLeg.enablesEcholocation) || (leftArm && leftArm.enablesEcholocation) || (rightArm && rightArm.enablesEcholocation) || (tail && tail.enablesEcholocation);
     }
 
     public void Eat(int points)
