@@ -29,9 +29,6 @@ namespace Brain
 
             BrainInstruction instruction = compiledFunction.commands[instructionIndex];
             instruction.action.Invoke(runningProgram, locals, instruction.args, returnPointer);
-            Console.WriteLine(GetHashCode() + ", " + instructionIndex + " {");
-            foreach (object o in runningProgram.stack) Console.WriteLine(": " + o);
-            Console.WriteLine("}");
             instructionIndex++;
         }
     }
