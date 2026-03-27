@@ -49,9 +49,9 @@ namespace Brain
             return new CompiledBrainProgram(functions);
         }
 
-        public void Instantiate(CompiledBrainProgram compiledProgram)
+        public void Instantiate(CompiledBrainProgram compiledProgram, ControlledProjectile self)
         {
-            if (runningInstance is null) runningInstance = new RunningBrainProgram(compiledProgram);
+            if (runningInstance is null) runningInstance = compiledProgram.Instantiate(self);
         }
     }
 }

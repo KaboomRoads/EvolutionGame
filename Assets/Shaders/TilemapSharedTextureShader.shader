@@ -51,7 +51,7 @@ Shader "Custom/TilemapSharedTextureShader"
                 float3 worldPos : TEXCOORD1;
             };
 
-            uint colorToIndex(float4 c)
+            uint color_to_index(float4 c)
             {
                 uint r = (uint)floor(c.r * 255.0 + 0.5);
                 uint g = (uint)floor(c.g * 255.0 + 0.5);
@@ -59,19 +59,6 @@ Shader "Custom/TilemapSharedTextureShader"
                 uint a = (uint)floor(c.a * 255.0 + 0.5);
                 return (r << 24) | (g << 16) | (b << 8) | a;
             }
-
-            // uint colorToIndex(float4 c)
-            // {
-            //     uint r = (uint)floor(saturate(c.r) * 255.0 + 0.5);
-            //     uint g = (uint)floor(saturate(c.g) * 255.0 + 0.5);
-            //     uint b = (uint)floor(saturate(c.b) * 255.0 + 0.5);
-            //     return (r << 16) | (g << 8) | b;
-            // }
-
-            // uint colorToIndex(float4 c)
-            // {
-            //     return (uint)floor(saturate(c.a) * 255.0 + 0.5);
-            // }
 
             Varyings vert(Attributes v)
             {
@@ -89,7 +76,7 @@ Shader "Custom/TilemapSharedTextureShader"
                 half maskA = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uvMask).a;
                 clip(maskA - 0.001h);
 
-                float layer = (float)colorToIndex(i.color);
+                float layer = (float)color_to_index(i.color);
 
                 float2 uv = frac(i.worldPos.xy * _WorldToUV);
 

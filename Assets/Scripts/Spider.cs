@@ -1,4 +1,5 @@
 using System;
+using Isometric;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.U2D.IK;
@@ -10,7 +11,7 @@ namespace System.Runtime.CompilerServices
     }
 }
 
-public class Spider : MonoBehaviour
+public class Spider : Potvora
 {
     public float moveSpeed;
     public float legSpeed;
@@ -26,7 +27,7 @@ public class Spider : MonoBehaviour
 
     private void Start()
     {
-        followTransform = FindFirstObjectByType<Player>().transform;
+        followTransform = FindFirstObjectByType<IsoPlayer>().transform;
 
         legs = new Leg[legCount];
         float radialIncrement = Mathf.PI * 2.0F / legCount;

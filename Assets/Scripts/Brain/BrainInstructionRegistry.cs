@@ -250,24 +250,19 @@ namespace Brain
 
         public static readonly BrainInstructionType POP = Register("pop", 1, () => true, "Pops the top element of the stack", Type.EmptyTypes, Type.EmptyTypes, (runningProgram, locals, args, returnPointer) => { runningProgram.stack.Pop(); });
 
-        public static readonly BrainInstructionType LIMB = Register("limb", 1, () => true, "Gets a limb from the lizard", Type.EmptyTypes, new[] { typeof(BodyPart) }, (runningProgram, locals, args, returnPointer) =>
-        {
-            if (args.Length > 0 && args[0] is { } s)
-            {
-                var stack = runningProgram.stack;
-                var evolutionData = EvolutionData.instance;
-                stack.Push(evolutionData.LimbFromName(s));
-            }
-        });
-
-        public static readonly BrainInstructionType ECHO = Register("echo", 3, () => EvolutionData.instance.AnyEcho(), "Pushes the distance of the closest food or an empty result to the stack", new[] { typeof(BodyPart) }, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType ECHO = Register("echo", 3, () => EvolutionData.instance.AnyEcho(), "Pushes the distance of the closest enemy or an empty result to the stack", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
-            var evolutionData = EvolutionData.instance;
-            var found = Object.FindObjectsByType<Food>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-            float closestDist = found.Select(food => Vector2.Distance(food.transform.position, evolutionData.transform.position)).Prepend(float.MaxValue).Min();
+            var enemy = Object.FindObjectsByType<Potvora>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            float closestDist = enemy.Select(e => Vector2.Distance(e.transform.position, runningProgram.self.transform.position)).Prepend(float.MaxValue).Min();
             if (closestDist is not float.MaxValue) stack.Push(closestDist);
             else stack.Push(null);
+        });
+
+        public static readonly BrainInstructionType ROT = Register("rot", 1, () => EvolutionData.instance.AnyEcho(), "Rotates self by x degrees", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        {
+            var stack = runningProgram.stack;
+            if (stack.Pop() is float f) runningProgram.self.transform.Rotate(Vector3.back, f);
         });
 
         public static BrainInstructionType Register(string name, int cost, Func<bool> unlockCriteria, string description, Type[] requiredArgs, Type[] returnTypes, BrainInstructionAction instructionAction)

@@ -11,9 +11,9 @@ namespace Brain
             this.functions = functions;
         }
 
-        public RunningBrainProgram Instantiate()
+        public RunningBrainProgram Instantiate(ControlledProjectile self)
         {
-            return new RunningBrainProgram(this);
+            return new RunningBrainProgram(this, self);
         }
     }
 }

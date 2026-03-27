@@ -5,15 +5,22 @@ namespace Brain
 {
     public class RunningBrainProgram
     {
+        public readonly ControlledProjectile self;
         public readonly CompiledBrainProgram compiledProgram;
         public readonly Dictionary<string, object> fields = new();
         public readonly Stack<object> stack = new();
         [CanBeNull] public RunningBrainFunction currentFunction;
 
-        public RunningBrainProgram(CompiledBrainProgram compiledProgram)
+        public RunningBrainProgram(CompiledBrainProgram compiledProgram, ControlledProjectile self)
         {
             this.compiledProgram = compiledProgram;
-            currentFunction = compiledProgram.functions["main()V"].Instantiate(this, null);
+            this.self = self;
+            currentFunction = GetMain();
+        }
+
+        public RunningBrainFunction GetMain()
+        {
+            return compiledProgram.functions["main()V"].Instantiate(this, null);
         }
 
         public void Step()
