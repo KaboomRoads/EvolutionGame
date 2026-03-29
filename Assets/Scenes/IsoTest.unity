@@ -109958,7 +109958,7 @@ GameObject:
   - component: {fileID: 1200697490}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110134,10 +110134,6 @@ MonoBehaviour:
   - {fileID: 4457313849538157962, guid: 49d6d81db9640f842817590a6ce81479, type: 3}
   projectile: {fileID: 8705548940226804452, guid: 236da5c9ef64b4242a42dd67bc6ccfe1, type: 3}
   player: {fileID: 1200697487}
-  programLines:
-  - .main()V
-  - push.dec 5
-  - rot
 --- !u!1 &1204849282
 GameObject:
   m_ObjectHideFlags: 0
