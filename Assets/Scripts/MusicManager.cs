@@ -12,6 +12,7 @@ public class MusicManager : MonoBehaviour
     public void SetMusic(AudioClip music)
     {
         source.Stop();
+        source.loop = true;
         source.clip = music;
         source.Play();
     }

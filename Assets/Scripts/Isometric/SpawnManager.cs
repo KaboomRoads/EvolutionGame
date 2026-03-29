@@ -37,19 +37,19 @@ namespace Isometric
         public void DoSpawn()
         {
             Vector2 center = transform.position;
-            // for (var i = 0; i < spawnCount; i++)
-            // {
-            //     Vector2 ranVector = Quaternion.EulerAngles(0, 0, MathF.PI * 2.0F * Random.value) * Vector2.up;
-            //     ranVector *= radius + Random.value * randomRadiusPadding;
-            //     Vector2 spawnPos = center + ranVector;
-            //     GameObject goon = goons[Random.Range(0, goons.Length)];
-            //     goon.transform.position = spawnPos;
-            //     Instantiate(goon);
-            //
-            //     projectile.transform.position = player.transform.position;
-            //     ControlledProjectile instance = Instantiate(projectile);
-            //     instance.program = new CompiledBrainProgram(program.functions);
-            // }
+            for (var i = 0; i < spawnCount; i++)
+            {
+                Vector2 ranVector = Quaternion.EulerAngles(0, 0, MathF.PI * 2.0F * Random.value) * Vector2.up;
+                ranVector *= radius + Random.value * randomRadiusPadding;
+                Vector2 spawnPos = center + ranVector;
+                GameObject goon = goons[Random.Range(0, goons.Length)];
+                goon.transform.position = spawnPos;
+                Instantiate(goon);
+
+                projectile.transform.position = player.transform.position;
+                ControlledProjectile instance = Instantiate(projectile);
+                instance.program = new CompiledBrainProgram(program.functions);
+            }
 
             {
                 projectile.transform.position = player.transform.position;
