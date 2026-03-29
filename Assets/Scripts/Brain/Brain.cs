@@ -15,6 +15,8 @@ namespace Brain
             string currentFunctionName = null;
             var functionIndex = 0;
             foreach (string line in lines)
+            {
+                if (line.Length <= 0) continue;
                 if (line.StartsWith('.'))
                 {
                     functionIndex = 0;
@@ -44,6 +46,7 @@ namespace Brain
                     currentFunction.Add(instruction);
                     functionIndex++;
                 }
+            }
 
             if (currentFunctionName is not null) functions[currentFunctionName] = new CompiledBrainFunction(currentFunction, currentJumpLabels);
             return new CompiledBrainProgram(functions);

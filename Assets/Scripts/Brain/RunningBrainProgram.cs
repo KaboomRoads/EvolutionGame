@@ -15,12 +15,17 @@ namespace Brain
         {
             this.compiledProgram = compiledProgram;
             this.self = self;
-            currentFunction = GetMain();
+            currentFunction = GetInit();
         }
 
         public RunningBrainFunction GetMain()
         {
-            return compiledProgram.functions["main()V"].Instantiate(this, null);
+            return compiledProgram.functions["loop"].Instantiate(this, null);
+        }
+
+        public RunningBrainFunction GetInit()
+        {
+            return compiledProgram.functions["init"].Instantiate(this, null);
         }
 
         public void Step()

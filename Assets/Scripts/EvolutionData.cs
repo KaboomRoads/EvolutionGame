@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EvolutionData : MonoBehaviour
@@ -22,6 +23,13 @@ public class EvolutionData : MonoBehaviour
     public BodyPart rightArm;
     public BodyPart tail;
     public Brain.Brain brain;
+    public List<string> programLines;
+
+    public void OnCodeEditChanged(string value)
+    {
+        string[] strings = value.Split('\n');
+        programLines = new List<string>(strings);
+    }
 
     public BodyPart LimbFromName(string name)
     {

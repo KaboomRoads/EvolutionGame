@@ -250,19 +250,24 @@ namespace Brain
 
         public static readonly BrainInstructionType POP = Register("pop", 1, () => true, "Pops the top element of the stack", Type.EmptyTypes, Type.EmptyTypes, (runningProgram, locals, args, returnPointer) => { runningProgram.stack.Pop(); });
 
-        public static readonly BrainInstructionType ECHO = Register("echo", 3, () => EvolutionData.instance.AnyEcho(), "Pushes the distance of the closest enemy or an empty result to the stack", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType TDIST = Register("tdist", 3, () => true, "Pushes the distance of the current target or an empty result to the stack", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
-            var enemy = Object.FindObjectsByType<Potvora>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-            float closestDist = enemy.Select(e => Vector2.Distance(e.transform.position, runningProgram.self.transform.position)).Prepend(float.MaxValue).Min();
-            if (closestDist is not float.MaxValue) stack.Push(closestDist);
+            ControlledProjectile enemy = runningProgram.self;
+            if (enemy.target != null) stack.Push(Vector2.Distance(enemy.target.position, runningProgram.self.transform.position));
             else stack.Push(null);
         });
 
-        public static readonly BrainInstructionType ROT = Register("rot", 1, () => EvolutionData.instance.AnyEcho(), "Rotates self by x degrees", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        public static readonly BrainInstructionType ROT = Register("rot", 1, () => true, "Rotates self by x degrees", new[] { typeof(float) }, Type.EmptyTypes, (runningProgram, locals, args, returnPointer) =>
         {
             var stack = runningProgram.stack;
-            if (stack.Pop() is float f) runningProgram.self.transform.Rotate(Vector3.back, f);
+            if (stack.Pop() is float f) runningProgram.self.transform.Rotate(Vector3.back, f * 0.5F);
+        });
+
+        public static readonly BrainInstructionType TIME = Register("time", 1, () => true, "Pushes the current time to the stack", Type.EmptyTypes, new[] { typeof(float) }, (runningProgram, locals, args, returnPointer) =>
+        {
+            var stack = runningProgram.stack;
+            stack.Push(Time.time);
         });
 
         public static BrainInstructionType Register(string name, int cost, Func<bool> unlockCriteria, string description, Type[] requiredArgs, Type[] returnTypes, BrainInstructionAction instructionAction)
