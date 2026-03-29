@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 public class MusicSwitcher : MonoBehaviour
 {
+    [CanBeNull] public AudioClip intro;
     public AudioClip music;
     private MusicManager musicManager;
 
@@ -12,6 +14,16 @@ public class MusicSwitcher : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (musicManager.GetMusic() != music) musicManager.SetMusic(music);
+        if (other.CompareTag("Player"))
+        {
+            if (intro == null)
+            {
+                if (musicManager.GetMusic() != music) musicManager.SetMusic(music);
+            }
+            else
+            {
+                if (musicManager.GetMusic() != music && musicManager.GetMusic() != intro) musicManager.DualLoop(intro, music);
+            }
+        }
     }
 }
